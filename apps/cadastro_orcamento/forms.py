@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django.http import request
 from .models import CadastroOrcamento
 from apps.usuario.models import Usuario
 
@@ -6,8 +7,7 @@ from apps.usuario.models import Usuario
 class CadastroOrcamentoForm(ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(CadastroOrcamentoForm, self).__init__(*args, **kwargs)
-        self.fields['cc_cadastro_orcamento'].queryset = Usuario.objects.filter(
-            centrodecusto_usuario=Usuario.centrodecusto_usuario)
+        self.fields['cc_cadastro_orcamento'].queryset = Usuario.objects.filter(centrodecusto_usuario=Usuario.centrodecusto_usuario)
 
     class Meta:
         model = CadastroOrcamento

@@ -7,12 +7,16 @@ from .forms import CadastroOrcamentoForm
 
 class CadastroOrcamentoList(LoginRequiredMixin, ListView):
     model = CadastroOrcamento
-    fields = ['cc_cadastro_orcamento', 'no_cadastro_orcamento', 'valor_cadastro_orcamento', 'data_cadastro_orcamento', 'obs_cadastro_orcamento']
 
 
 class CadastroOrcamentoEdit(LoginRequiredMixin, UpdateView):
     model = CadastroOrcamento
+    form_class = CadastroOrcamentoForm
 
+    def get_form_kwargs(self):
+        kwargs = super(CadastroOrcamentoEdit, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 class CadastroOrcamentoDelete(LoginRequiredMixin, DeleteView):
     model = CadastroOrcamento
@@ -20,5 +24,9 @@ class CadastroOrcamentoDelete(LoginRequiredMixin, DeleteView):
 
 class CadastroOrcamentoCreate(LoginRequiredMixin, CreateView):
     model = CadastroOrcamento
-    fields = ['cc_cadastro_orcamento', 'no_cadastro_orcamento', 'valor_cadastro_orcamento', 'data_cadastro_orcamento', 'obs_cadastro_orcamento']
+    form_class = CadastroOrcamentoForm
 
+    def get_form_kwargs(self):
+        kwargs = super(CadastroOrcamentoCreate, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
